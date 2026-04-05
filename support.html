@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Support — allPlay</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green-dark:   #0a2e14;
+      --green-mid:    #14532d;
+      --green-accent: #22c55e;
+      --green-light:  #4ade80;
+      --bg:           #0d1f17;
+      --surface:      #122a1e;
+      --surface2:     #163322;
+      --border:       #1e4a2e;
+      --text:         #e8f5ee;
+      --muted:        #7aad8e;
+      --radius:       12px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.75;
+    }
+
+    /* ── Header ── */
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+    }
+
+    .logo-mark {
+      width: 42px; height: 42px;
+      background: var(--green-dark);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      border: 1px solid var(--border);
+    }
+
+    .logo-word { font-size: 22px; font-weight: 600; color: #fff; letter-spacing: -0.3px; }
+    .logo-word span { color: var(--green-light); font-weight: 700; }
+
+    /* ── Hero ── */
+    .hero {
+      background: linear-gradient(135deg, var(--green-dark) 0%, #0f3d20 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 52px 24px 44px;
+      text-align: center;
+    }
+
+    .hero h1 { font-size: clamp(26px, 5vw, 38px); font-weight: 700; color: #fff; margin-bottom: 10px; letter-spacing: -0.5px; }
+    .hero p { font-size: 15px; color: var(--muted); max-width: 480px; margin: 0 auto; }
+
+    /* ── Main ── */
+    main { max-width: 740px; margin: 0 auto; padding: 52px 24px 80px; }
+
+    /* ── Section titles ── */
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--green-accent);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ── Quick links ── */
+    .quick-links {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      margin-bottom: 52px;
+    }
+
+    .quick-link {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      text-decoration: none;
+      transition: border-color 0.15s, background 0.15s;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .quick-link:hover { border-color: var(--green-accent); background: var(--surface2); }
+
+    .quick-link .ql-icon {
+      width: 32px; height: 32px;
+      background: var(--green-dark);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .quick-link .ql-icon svg { width: 16px; height: 16px; stroke: var(--green-accent); }
+
+    .quick-link .ql-text { display: flex; flex-direction: column; gap: 3px; }
+    .quick-link .ql-title { font-size: 14px; font-weight: 600; color: var(--text); }
+    .quick-link .ql-desc  { font-size: 12px; color: var(--muted); line-height: 1.5; }
+
+    /* ── FAQ ── */
+    .faq { margin-bottom: 52px; }
+
+    .faq-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 10px;
+      overflow: hidden;
+      transition: border-color 0.15s;
+    }
+
+    .faq-item.featured { border-color: var(--green-accent); }
+
+    .faq-item.featured .faq-q::before {
+      content: 'Common issue';
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--green-accent);
+      background: rgba(34,197,94,0.1);
+      border: 1px solid rgba(34,197,94,0.25);
+      padding: 2px 8px;
+      border-radius: 20px;
+      margin-right: 10px;
+      white-space: nowrap;
+    }
+
+    .faq-q {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 20px 22px;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.4;
+    }
+
+    .faq-q:hover { color: #fff; }
+
+    .faq-chevron {
+      margin-left: auto;
+      flex-shrink: 0;
+      width: 18px; height: 18px;
+      stroke: var(--muted);
+      transition: transform 0.2s;
+    }
+
+    .faq-item.open .faq-chevron { transform: rotate(180deg); }
+
+    .faq-a {
+      display: none;
+      padding: 0 22px 22px;
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.85;
+      border-top: 1px solid var(--border);
+      padding-top: 18px;
+    }
+
+    .faq-item.open .faq-a { display: block; }
+
+    .faq-a p + p { margin-top: 10px; }
+
+    .faq-a .tip {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--green-accent);
+      border-radius: 8px;
+      padding: 14px 18px;
+      margin-top: 14px;
+      font-size: 13px;
+    }
+
+    .faq-a .tip strong { color: var(--text); }
+
+    .faq-a ul {
+      margin: 10px 0 0 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .faq-a ul li { font-size: 14px; color: var(--muted); }
+
+    /* ── Contact section ── */
+    .contact-section { margin-bottom: 0; }
+
+    .contact-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .contact-card .contact-icon {
+      width: 56px; height: 56px;
+      background: var(--green-dark);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .contact-card .contact-icon svg { width: 26px; height: 26px; stroke: var(--green-accent); }
+
+    .contact-card .contact-body { flex: 1; min-width: 200px; }
+    .contact-card h3 { font-size: 17px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+    .contact-card p  { font-size: 14px; color: var(--muted); margin-bottom: 16px; }
+
+    .btn-email {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--green-accent);
+      color: var(--green-dark);
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      padding: 10px 22px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background 0.15s;
+    }
+
+    .btn-email:hover { background: var(--green-light); }
+    .btn-email svg { width: 15px; height: 15px; stroke: var(--green-dark); }
+
+    /* ── Footer ── */
+    footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      text-align: center;
+      padding: 28px 24px;
+      font-size: 12px;
+      color: var(--muted);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: center;
+    }
+
+    footer strong { color: var(--text); }
+    footer a { color: var(--muted); text-underline-offset: 3px; }
+    footer a:hover { color: var(--green-light); }
+
+    @media (max-width: 500px) {
+      header { padding: 16px; }
+      .hero  { padding: 36px 16px 28px; }
+      main   { padding: 32px 16px 60px; }
+      .contact-card { padding: 22px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="allPlay_full_transparent.png" alt="allPlay" style="height:48px;"/>
+  </header>
+
+  <div class="hero">
+    <h1>Support</h1>
+    <p>Get help with allPlay. Browse common questions below or reach out directly — we're happy to help.</p>
+  </div>
+
+  <main>
+
+    <!-- Quick links -->
+    <div class="section-label">Quick help</div>
+    <div class="quick-links">
+      <a class="quick-link" href="#faq-impossible">
+        <div class="ql-icon"><svg fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6.5"/><line x1="8" y1="5" x2="8" y2="8.5"/><circle cx="8" cy="11" r="0.6" fill="#22c55e" stroke="none"/></svg></div>
+        <div class="ql-text">
+          <span class="ql-title">Lineup won't generate</span>
+          <span class="ql-desc">Conflicting settings explained</span>
+        </div>
+      </a>
+      <a class="quick-link" href="#faq-restore">
+        <div class="ql-icon"><svg fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 16 16"><path d="M3 8a5 5 0 1 0 5-5"/><polyline points="5,3 3,5 5,7"/></svg></div>
+        <div class="ql-text">
+          <span class="ql-title">Restore purchase</span>
+          <span class="ql-desc">After reinstalling or new device</span>
+        </div>
+      </a>
+      <a class="quick-link" href="#faq-players">
+        <div class="ql-icon"><svg fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 16 16"><circle cx="6" cy="5" r="2.5"/><path d="M1.5 13c0-2.5 2-4 4.5-4s4.5 1.5 4.5 4"/><circle cx="12" cy="5" r="2"/><path d="M11 13c.5-1.5 1.5-2.5 3-3"/></svg></div>
+        <div class="ql-text">
+          <span class="ql-title">Managing players</span>
+          <span class="ql-desc">Adding, editing, preferences</span>
+        </div>
+      </a>
+      <a class="quick-link" href="#contact-section">
+        <div class="ql-icon"><svg fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 16 16"><rect x="1.5" y="3.5" width="13" height="9" rx="1.5"/><polyline points="1.5,3.5 8,9 14.5,3.5"/></svg></div>
+        <div class="ql-text">
+          <span class="ql-title">Contact us</span>
+          <span class="ql-desc">Send us a message directly</span>
+        </div>
+      </a>
+    </div>
+
+    <!-- FAQ -->
+    <div class="section-label">Frequently asked questions</div>
+    <div class="faq">
+
+      <!-- FEATURED: impossible lineup -->
+      <div class="faq-item featured open" id="faq-impossible">
+        <button class="faq-q">
+          Why does allPlay say it can't generate a balanced lineup?
+          <svg class="faq-chevron" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 16 16"><polyline points="4,6 8,10 12,6"/></svg>
+        </button>
+        <div class="faq-a">
+          <p>This usually happens when two or more settings conflict with each other in a way that makes a mathematically fair lineup impossible. The most common combination is:</p>
+          <ul>
+            <li><strong>GK rotation is on</strong> — so one goalkeeper plays exactly one half in goal</li>
+            <li><strong>Playing in halves</strong> — meaning that GK uses up half their total game time in goal</li>
+            <li><strong>GK time counted as bonus time</strong> — meaning their GK half doesn't count toward their fair share of outfield minutes</li>
+          </ul>
+          <p>The problem: if GK time is bonus, that player still needs a full fair share of outfield time on top of their half in goal — which would require them to play more than 100% of the game. That's not possible, so allPlay can't build a balanced lineup.</p>
+          <div class="tip">
+            <strong>How to fix it:</strong> Try one of these adjustments in your settings —
+            <ul style="margin-top:8px;">
+              <li>Turn off <strong>GK time as bonus</strong>, so the goalkeeper's time in goal counts toward their fair share</li>
+              <li>Switch from <strong>halves</strong> to <strong>quarters</strong>, giving more flexibility to distribute time</li>
+              <li>Turn off <strong>GK rotation</strong> if you have a dedicated goalkeeper who always plays in goal</li>
+            </ul>
+          </div>
+          <p style="margin-top:14px;">In general, if allPlay can't generate a lineup, try relaxing one setting at a time until it succeeds. The app will usually indicate which setting combination is causing the conflict.</p>
+        </div>
+      </div>
+
+      <!-- Restore purchase -->
+      <div class="faq-item" id="faq-restore">
+        <button class="faq-q">
+          I bought the full unlock but it's asking me to purchase again. How do I restore it?
+          <svg class="faq-chevron" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 16 16"><polyline points="4,6 8,10 12,6"/></svg>
+        </button>
+        <div class="faq-a">
+          <p>Your purchase is tied to your Apple ID, not your device. If you've reinstalled the app, switched to a new device, or logged in with the same Apple ID on another device, you can restore your purchase at no charge.</p>
+          <div class="tip"><strong>To restore:</strong> Look for a <strong>Restore Purchase</strong> option in the app's settings or on the unlock screen. Tap it and sign in with the same Apple ID you used when you originally purchased. Apple will confirm the purchase and unlock full functionality automatically.</div>
+          <p>If restoring doesn't work, make sure you're signed into the correct Apple ID — the one you used when you originally bought the unlock.</p>
+        </div>
+      </div>
+
+      <!-- Adding players -->
+      <div class="faq-item" id="faq-players">
+        <button class="faq-q">
+          How do I add players and set their position preferences?
+          <svg class="faq-chevron" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 16 16"><polyline points="4,6 8,10 12,6"/></svg>
+        </button>
+        <div class="faq-a">
+          <p>From the Roster screen, tap the <strong>+</strong> button to add a new player. Enter their name and optionally set position preferences — these tell allPlay which positions that player prefers or should be prioritised for during lineup generation.</p>
+          <p>Position preferences are per-game, so you can adjust them before generating each new lineup without affecting your base roster.</p>
+          <div class="tip"><strong>Tip:</strong> If a player has a strong preference for goalkeeper (or you want to avoid putting them there), setting that preference explicitly will give you more predictable results.</div>
+        </div>
+      </div>
+
+      <!-- Formations -->
+      <div class="faq-item">
+        <button class="faq-q">
+          What formats and formations does allPlay support?
+          <svg class="faq-chevron" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 16 16"><polyline points="4,6 8,10 12,6"/></svg>
+        </button>
+        <div class="faq-a">
+          <p>allPlay supports formats from <strong>5v5 through to 11v11</strong>, covering the full range of youth recreational soccer. Within each format you can choose from a variety of standard formations.</p>
+          <p>If your league uses a specific formation not listed, get in touch — we'd like to know what's missing.</p>
+        </div>
+      </div>
+
+      <!-- PDF export -->
+      <div class="faq-item">
+        <button class="faq-q">
+          How do I export and print a game sheet?
+          <svg class="faq-chevron" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 16 16"><polyline points="4,6 8,10 12,6"/></svg>
+        </button>
+        <div class="faq-a">
+          <p>Once you've generated a lineup, tap <strong>Text PDF</strong> for a print-ready game sheet showing each period's lineup and substitution plan, or <strong>Field PDF</strong> for a visual field diagram. Both are generated on your device and can be shared via AirDrop, email, or printed directly.</p>
+          <div class="tip"><strong>Tip:</strong> The field PDF is great for sharing with assistant coaches on the sideline who prefer a visual overview.</div>
+        </div>
+      </div>
+
+      <!-- Editing a lineup -->
+      <div class="faq-item">
+        <button class="faq-q">
+          Can I make changes to a generated lineup?
+          <svg class="faq-chevron" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 16 16"><polyline points="4,6 8,10 12,6"/></svg>
+        </button>
+        <div class="faq-a">
+          <p>Yes. After generating a lineup, tap <strong>Edit Lineup</strong> to fine-tune any period, position, or substitution. Changes you make manually are saved with the lineup.</p>
+          <p>If a player is absent on game day or you need to make a last-minute adjustment, you can edit directly without regenerating the whole lineup from scratch.</p>
+        </div>
+      </div>
+
+      <!-- Saving lineups -->
+      <div class="faq-item">
+        <button class="faq-q">
+          How do I save a lineup to refer back to later?
+          <svg class="faq-chevron" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 16 16"><polyline points="4,6 8,10 12,6"/></svg>
+        </button>
+        <div class="faq-a">
+          <p>Tap <strong>Save Lineup</strong> on the lineup screen. Saved lineups appear under the <strong>Saved</strong> tab in the navigation bar, where you can review or reload any previous game's lineup.</p>
+        </div>
+      </div>
+
+      <!-- Data / privacy -->
+      <div class="faq-item">
+        <button class="faq-q">
+          Where is my roster data stored? Is it backed up?
+          <svg class="faq-chevron" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 16 16"><polyline points="4,6 8,10 12,6"/></svg>
+        </button>
+        <div class="faq-a">
+          <p>All your data — rosters, lineups, and settings — is stored locally on your device only. It is never uploaded to any server.</p>
+          <p>If you back up your device to iCloud or your Mac, your allPlay data will be included in that backup and will transfer to a new device through a normal restore. Deleting the app will remove all local data, so export any lineups you want to keep before uninstalling.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Contact -->
+    <div class="section-label">Still need help?</div>
+    <div class="contact-section" id="contact-section">
+      <div class="contact-card">
+        <div class="contact-icon">
+          <svg fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 26 26">
+            <rect x="2" y="5" width="22" height="16" rx="2.5"/>
+            <polyline points="2,5 13,14 24,5"/>
+          </svg>
+        </div>
+        <div class="contact-body">
+          <h3>Get in touch</h3>
+          <p>Can't find what you're looking for? Send us a message and we'll get back to you as soon as we can. allplaysoccerapp at gmail dot com</p>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer>
+    <p>&copy; 2026 <strong>allPlay</strong> &nbsp;·&nbsp; Fair time for every player, every game.</p>
+    <p><a href="privacy.html">Privacy Policy</a></p>
+  </footer>
+  <script>
+    document.querySelectorAll('.faq-q').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var item = btn.closest('.faq-item');
+        item.classList.toggle('open');
+      });
+    });
+  </script>
+
+</body>
+</html>
